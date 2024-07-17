@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       <section
-        className="bg-white mx-auto text-lg"
+        className="bg-white mx-auto text-lg px-6"
         ref={downloadItem}
       >
         <header className="py-8">
@@ -45,13 +45,13 @@ function App() {
             <img src={logo} alt="" className="w-[60%]" />
           </div>
         </header>
-        <main className="px-10">
+        <main>
           <h1
             className="text-3xl text-blue-800 text-center font-bold mb-10
         "
           >
             {receiptType === "withdrawal"
-              ? "Withdrawal Request   Completed"
+              ? "Withdrawal Request Completed"
               : "Deposit Completed"}
           </h1>
 
