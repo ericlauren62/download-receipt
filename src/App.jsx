@@ -42,7 +42,7 @@ function App() {
       >
         <header className="py-8">
           <div className="flex justify-center items-center">
-            <img src="https://i.im.ge/2024/07/18/V34qCJ.ITFG-LOGO.png" alt="" className="w-[70%]" />
+            <img src="https://download-receipt.vercel.app/ITFG-LOGO.png" alt="" className="w-[70%]" />
           </div>
         </header>
         <main>
