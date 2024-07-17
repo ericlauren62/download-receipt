@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import logo from "./images/ITFG-LOGO.png";
 import * as htmlToImage from "html-to-image";
 import { FaInstagram } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa6";
@@ -8,11 +7,12 @@ import { FaXTwitter } from "react-icons/fa6";
 function App() {
   const [fullname, setFullname] = useState("Henry Micheal");
   const [amount, setAmount] = useState("300");
-  const [amountInCrypto, setAmountInCrypto] = useState("0.00228367")
+  const [amountInCrypto, setAmountInCrypto] = useState("200")
   const [receiptType, setReceiptType] = useState("withdrawal");
   const [paymentType, setPaymentType] = useState("Bitcoin");
   const [walletId, setWalletId] = useState("1feqpwptxbnfoaD9qjRRpaqaschw1xct");
   const [time, setTime] = useState("7/18/2024 12:35pm")
+  const [chainAmount, setChainAmount] = useState("0.002356 BTC")
 
   const downloadItem = useRef(null);
  
@@ -42,7 +42,7 @@ function App() {
       >
         <header className="py-8">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="" className="w-[60%]" />
+            <img src="https://i.im.ge/2024/07/18/V34qCJ.ITFG-LOGO.png" alt="" className="w-[70%]" />
           </div>
         </header>
         <main>
@@ -80,6 +80,9 @@ function App() {
                 <strong>Withdrawal Amount(USD): </strong> ${amount}
               </p>
               <p>
+                <strong>Chain Amount: </strong> {chainAmount}
+              </p>
+              <p>
                 <strong>Payment Type: </strong> {paymentType}
               </p>
               <p>
@@ -94,7 +97,10 @@ function App() {
           {receiptType === "deposit" && (
             <div className="mb-8">
               <p>
-                <strong>Deposit Amount: </strong> {amountInCrypto}
+                <strong>Deposit Amount(USD): </strong> ${amountInCrypto}
+              </p>
+              <p>
+                <strong>Chain Amount: </strong> {chainAmount}
               </p>
               <p>
                 <strong>Payment Type: </strong> {paymentType}
@@ -169,6 +175,18 @@ function App() {
           </div>
           <div>
             <label htmlFor="" className="font-bold mb-2 block">
+              Chain Amount
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Chain Amount"
+              value={chainAmount}
+              className="border border-gray-600 w-full p-3 rounded-sm"
+              onChange={(e) => setChainAmount(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="" className="font-bold mb-2 block">
               Date and Time
             </label>
             <input
@@ -196,7 +214,7 @@ function App() {
           }
           {receiptType === "deposit" && <div>
             <label htmlFor="" className="font-bold mb-2 block">
-              Amount In Crypto Value
+              Amount
             </label>
             <input
               type="text"
