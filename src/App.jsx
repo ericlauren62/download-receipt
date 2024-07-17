@@ -8,24 +8,17 @@ import { FaXTwitter } from "react-icons/fa6";
 function App() {
   const [fullname, setFullname] = useState("Henry Micheal");
   const [amount, setAmount] = useState("300");
+  const [amountInCrypto, setAmountInCrypto] = useState("0.00228367")
+  const [receiptType, setReceiptType] = useState("withdrawal");
   const [paymentType, setPaymentType] = useState("Bitcoin");
   const [walletId, setWalletId] = useState("1feqpwptxbnfoaD9qjRRpaqaschw1xct");
+  const [time, setTime] = useState("7/18/2024 12:35pm")
 
   const downloadItem = useRef(null);
-  const now = new Date();
-
-  // Get individual components of the date and time
-  const year = now.getFullYear(); // Full year (e.g., 2024)
-  const month = now.getMonth() + 1; // Month (0-11, so add 1 for January to December)
-  const day = now.getDate(); // Day of the month (1-31)
-  const hours = now.getHours(); // Hours (0-23)
-  const minutes = now.getMinutes(); // Minutes (0-59)
-
-  // Format date and time as a string
-  const fullDateTime = `${year}-${month}-${day} ${hours}:${minutes}`;
+ 
 
   const handleDownload = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (downloadItem.current) {
       htmlToImage
         .toPng(downloadItem.current)
@@ -43,48 +36,82 @@ function App() {
 
   return (
     <>
-      <section className="bg-white border" ref={downloadItem}>
+      <section
+        className="bg-white border max-w-[600px] mx-auto text-lg"
+        ref={downloadItem}
+      >
         <header className="py-8">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="" className="w-1/2" />
+            <img src={logo} alt="" className="w-[60%]" />
           </div>
         </header>
         <main className="px-10">
           <h1
-            className="text-2xl text-blue-800 text-center font-bold mb-6
+            className="text-3xl text-blue-800 text-center font-bold mb-10
         "
           >
-            Withdrawal Request <br />
-            Completed
+            {receiptType === "withdrawal"
+              ? "Withdrawal Request   Completed"
+              : "Deposit Completed"}
           </h1>
 
-          <p>Dear {fullname},</p>
           <p className="mb-5">
-            We are pleased to inform you that your{" "}
-            <strong>withdrawal request</strong> from your investment account has
-            been successfully processed. Below are the details of your
-            withdrawal:
+            <strong>Dear {fullname},</strong>
           </p>
+          {receiptType === "withdrawal" && (
+            <p className="mb-8">
+              We are pleased to inform you that your{" "}
+              <strong>withdrawal request</strong> from your investment account
+              has been successfully processed. Below are the details of your
+              withdrawal:
+            </p>
+          )}
 
-          <div className="mb-5">
-            <p>
-              <strong>Withdrawal Amount(USD): </strong> ${amount}
+          {receiptType === "deposit" && (
+            <p className="mb-8">
+              Your deposit has been confirmed. Below are the details of your
+              deposit:
             </p>
-            <p>
-              <strong>Payment Type: </strong> {paymentType}
-            </p>
-            <p>
-              <strong>Date of Withdrawal: </strong>
-              {fullDateTime}
-            </p>
-            <p>
-              <strong>Wallet ID: </strong> {walletId}
-            </p>
-          </div>
+          )}
+
+          {receiptType === "withdrawal" && (
+            <div className="mb-8">
+              <p>
+                <strong>Withdrawal Amount(USD): </strong> ${amount}
+              </p>
+              <p>
+                <strong>Payment Type: </strong> {paymentType}
+              </p>
+              <p>
+                <strong>Date of Withdrawal: </strong>
+                {time}
+              </p>
+              <p>
+                <strong>Wallet ID: </strong> {walletId}
+              </p>
+            </div>
+          )}
+          {receiptType === "deposit" && (
+            <div className="mb-8">
+              <p>
+                <strong>Deposit Amount: </strong> {amountInCrypto}
+              </p>
+              <p>
+                <strong>Payment Type: </strong> {paymentType}
+              </p>
+              <p>
+                <strong>Deposit Address: </strong> {walletId}
+              </p>
+              <p>
+                <strong>Date: </strong>
+                {time}
+              </p>
+              
+            </div>
+          )}
 
           <p>
-            The withdrawn amount should now be reflected in your designated
-            account. If you need further assistance, please feel free to contact
+            If you need further assistance, please feel free to contact
             our live support team or email us at{" "}
             <span className="text-blue-900 font-semibold">
               support@indextradefinancialgroup.com
@@ -115,8 +142,10 @@ function App() {
       </section>
       <div className="px-8 my-20">
         <form action="" className="grid gap-y-5">
-        <div>
-            <label htmlFor="" className="font-bold mb-2 block">Full Name</label>
+          <div>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Full Name
+            </label>
             <input
               type="text"
               placeholder="Enter Full Name"
@@ -126,7 +155,36 @@ function App() {
             />
           </div>
           <div>
-          <label htmlFor="" className="font-bold mb-2 block">Amount</label>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Receipt Type
+            </label>
+            <select
+              value={receiptType}
+              onChange={(e) => setReceiptType(e.target.value)}
+              className="border border-gray-600 w-full p-3 rounded-sm"
+            >
+              <option value="withdrawal">Withdrawal</option>
+              <option value="deposit">Deposit</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Date and Time
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Full Name"
+              value={time}
+              className="border border-gray-600 w-full p-3 rounded-sm"
+              onChange={(e) => setTime(e.target.value)}
+            />
+          </div>
+          {receiptType === "withdrawal" && 
+          
+          <div>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Amount
+            </label>
             <input
               type="text"
               placeholder="Enter Amount"
@@ -135,8 +193,24 @@ function App() {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
+          }
+          {receiptType === "deposit" && <div>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Amount In Crypto Value
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Amount in crypto value"
+              value={amountInCrypto}
+              className="border border-gray-600 w-full p-3 rounded-sm"
+              onChange={(e) => setAmountInCrypto(e.target.value)}
+            />
+          </div>}
+          
           <div>
-          <label htmlFor="" className="font-bold mb-2 block">Payment Type</label>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Payment Type
+            </label>
             <input
               type="text"
               placeholder="Enter Payment Type"
@@ -146,7 +220,9 @@ function App() {
             />
           </div>
           <div>
-          <label htmlFor="" className="font-bold mb-2 block">Wallet ID</label>
+            <label htmlFor="" className="font-bold mb-2 block">
+              Wallet ID
+            </label>
             <input
               type="text"
               placeholder="Enter Wallet Id"
@@ -155,7 +231,12 @@ function App() {
               onChange={(e) => setWalletId(e.target.value)}
             />
           </div>
-          <button onClick={handleDownload} className="border py-3 bg-blue-900 text-white uppercase">download</button>
+          <button
+            onClick={handleDownload}
+            className="border py-3 bg-blue-900 text-white uppercase"
+          >
+            download
+          </button>
         </form>
       </div>
     </>
