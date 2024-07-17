@@ -83,7 +83,7 @@ function App() {
                 <strong>Chain Amount: </strong> {chainAmount}
               </p>
               <p>
-                <strong>Payment Type: </strong> {paymentType}
+                <strong>Chain Type: </strong> {paymentType}
               </p>
               <p>
                 <strong>Date of Withdrawal: </strong>
@@ -103,7 +103,7 @@ function App() {
                 <strong>Chain Amount: </strong> {chainAmount}
               </p>
               <p>
-                <strong>Payment Type: </strong> {paymentType}
+                <strong>Chain Type: </strong> {paymentType}
               </p>
               <p>
                 <strong>Deposit Address: </strong> {walletId}
@@ -187,6 +187,18 @@ function App() {
           </div>
           <div>
             <label htmlFor="" className="font-bold mb-2 block">
+              Chain Type
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Payment Type"
+              value={paymentType}
+              className="border border-gray-600 w-full p-3 rounded-sm"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="" className="font-bold mb-2 block">
               Date and Time
             </label>
             <input
@@ -225,18 +237,7 @@ function App() {
             />
           </div>}
           
-          <div>
-            <label htmlFor="" className="font-bold mb-2 block">
-              Payment Type
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Payment Type"
-              value={paymentType}
-              className="border border-gray-600 w-full p-3 rounded-sm"
-              onChange={(e) => setPaymentType(e.target.value)}
-            />
-          </div>
+          
           <div>
             <label htmlFor="" className="font-bold mb-2 block">
               Wallet ID
