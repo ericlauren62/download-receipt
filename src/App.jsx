@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       <section
-        className="bg-white border max-w-[600px] mx-auto text-lg"
+        className="bg-white mx-auto text-lg"
         ref={downloadItem}
       >
         <header className="py-8">
